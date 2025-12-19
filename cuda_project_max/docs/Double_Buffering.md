@@ -9,7 +9,7 @@ In high-performance GEMM kernels, the primary bottleneck is often the latency of
 This results in the Arithmetic Logic Units (ALUs) idling (stalling) for significant periods, leading to low compute utilization. To approach the theoretical peak performance of the GPU, we must employ **Latency Hiding** techniques.
 
 ### The Principle of Asynchronous Execution
-Modern GPUs utilize a scoreboard-based Warp Scheduler. Instructions are issued sequentially but executed asynchronously.
+Modern GPUs utilize a scoreboard-based Warp Scheduler. **Instructions are issued sequentially but executed asynchronously**.
 * When a `Load` instruction is issued, the Load/Store Unit (LSU) handles the request.
 * The Warp Scheduler **does not block** unless a subsequent instruction immediately requires the data being loaded.
 * **Strategy:** By issuing the Load instruction for the *next* tile before starting the computation for the *current* tile, we can overlap the memory access time with the computation time. This is the essence of **Software Pipelining**.
